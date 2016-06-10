@@ -147,11 +147,11 @@ public class AddMovieFragment extends DialogFragment{
                         ContentValues contentValues = new ContentValues();
 
                         if(create){
-
                             contentValues.put(DBHelper.KEY_TITLE, title);
                             contentValues.put(DBHelper.KEY_GENRE, genre);
                             contentValues.put(DBHelper.KEY_RELEASE_YEAR, releaseYear);
                             contentValues.put(DBHelper.KEY_SEEN, 0);
+                            contentValues.put(DBHelper.KEY_RATING, 0);
                             contentValues.put(DBHelper.KEY_DATE, date);
 
                             database.insert(DBHelper.TABLE_MOVIES, null, contentValues);
@@ -176,13 +176,11 @@ public class AddMovieFragment extends DialogFragment{
                     else Toast.makeText(getContext(), "Enter title and rating", Toast.LENGTH_SHORT).show();
                 }
 
-                /*Toast.makeText(getContext(), "Title " + title +
-                        " Genre " + genre + " ReleaseYear " + releaseYear +
-                        " Seen" + isSeen + " Rating " +rating, Toast.LENGTH_SHORT).show();*/
-
+                dbHelper.close();
+                dismiss();
             }
         });
-        dbHelper.close();
+
         return view;
     }
 
