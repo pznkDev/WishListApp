@@ -1,7 +1,9 @@
-package com.kpi.slava.wishlistapp;
+package com.kpi.slava.wishlistapp.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,14 +13,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.HomeFragment;
+import com.kpi.slava.wishlistapp.fragments.MoviesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
 
+    private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
+
     private AddMovieFragment addMovieFragment;
+    private HomeFragment homeFragment;
+    private MoviesFragment moviesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +43,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initFragments() {
+
+        fragmentManager = getSupportFragmentManager();
+
         addMovieFragment = new AddMovieFragment();
+        homeFragment = new HomeFragment();
+        moviesFragment = new MoviesFragment();
+
+
+        fragmentManager.beginTransaction().add(R.id.main_container, homeFragment).commit();
     }
 
     private void initToolbar() {
@@ -87,14 +105,15 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        transaction = fragmentManager.beginTransaction();
 
         switch(item.getItemId()){
             case (R.id.nav_home) :
-
+                transaction.replace(R.id.main_container, homeFragment);
                 break;
 
             case (R.id.nav_movies) :
-
+                transaction.replace(R.id.main_container, moviesFragment);
                 break;
 
             case (R.id.nav_books) :
@@ -117,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                 finish();
                 break;
         }
-
+        transaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
