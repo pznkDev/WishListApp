@@ -139,12 +139,12 @@ public class AddMovieFragment extends DialogFragment{
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy ");
                 date = dateFormat.format(new Date());
 
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
+                ContentValues contentValues = new ContentValues();
+
                 if(!isSeen){
 
                     if((!title.equals("")) && (!title.equals(" "))){
-
-                        SQLiteDatabase database = dbHelper.getWritableDatabase();
-                        ContentValues contentValues = new ContentValues();
 
                         if(create){
                             contentValues.put(DBHelper.KEY_TITLE, title);
@@ -159,6 +159,7 @@ public class AddMovieFragment extends DialogFragment{
                         else{
                             // edit movie unseen
                         }
+                        dismiss();
 
                     } else Toast.makeText(getContext(), "Enter title", Toast.LENGTH_SHORT).show();
                 }
@@ -166,21 +167,27 @@ public class AddMovieFragment extends DialogFragment{
                     if((!title.equals("")) && (!title.equals(" ")) && (!rating.equals(""))){
 
                         if(create){
-                            //create new movie seen
+                            contentValues.put(DBHelper.KEY_TITLE, title);
+                            contentValues.put(DBHelper.KEY_GENRE, genre);
+                            contentValues.put(DBHelper.KEY_RELEASE_YEAR, releaseYear);
+                            contentValues.put(DBHelper.KEY_SEEN, 1);
+                            contentValues.put(DBHelper.KEY_RATING, rating);
+                            contentValues.put(DBHelper.KEY_DATE, date);
+
+                            database.insert(DBHelper.TABLE_MOVIES, null, contentValues);
                         }
                         else{
                             // edit movie seen
                         }
-
+                        dismiss();
                     }
                     else Toast.makeText(getContext(), "Enter title and rating", Toast.LENGTH_SHORT).show();
                 }
 
                 dbHelper.close();
-                dismiss();
+
             }
         });
-
         return view;
     }
 

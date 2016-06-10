@@ -61,7 +61,7 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
 
         @Override
         public void onClick(View v) {
-            long id = Long.parseLong(unseenMovieList.get(getAdapterPosition()).getId());
+            int id = unseenMovieList.get(getAdapterPosition()).getId();
             switch (v.getId()){
                 case (R.id.btn_unseen_movie_delete) :
 

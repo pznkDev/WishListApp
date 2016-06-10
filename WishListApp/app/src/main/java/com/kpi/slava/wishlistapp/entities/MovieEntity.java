@@ -2,10 +2,11 @@ package com.kpi.slava.wishlistapp.entities;
 
 public class MovieEntity {
 
-    private String id, title, genre, releaseYear, date, rating;
+    private int id;
+    private String title, genre, releaseYear, date, rating;
     private byte seen;
 
-    public MovieEntity(String id, String title, String genre, String releaseYear, String date, String rating, byte seen) {
+    public MovieEntity(int id, String title, String genre, String releaseYear, String date, String rating, byte seen) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -15,7 +16,7 @@ public class MovieEntity {
         this.seen = seen;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
