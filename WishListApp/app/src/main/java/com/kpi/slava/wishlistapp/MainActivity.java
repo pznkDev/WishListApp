@@ -14,10 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+
+    private AddMovieFragment addMovieFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +30,14 @@ public class MainActivity extends AppCompatActivity
 
         initToolbar();
         initNavigationDrawer();
-      //  initFragments();
+        initFragments();
 
         initFabs();
 
+    }
 
-
+    private void initFragments() {
+        addMovieFragment = new AddMovieFragment();
     }
 
     private void initToolbar() {
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fab_add_movie).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "add movie", Toast.LENGTH_SHORT).show();
+                addMovieFragment.show(getSupportFragmentManager(), AddMovieFragment.TAG);
             }
         });
 
