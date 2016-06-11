@@ -15,6 +15,7 @@ import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.entities.MovieEntity;
 import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.RatingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,16 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
                     break;
 
                 case (R.id.btn_unseen_movie_seen) :
+
+                    RatingFragment ratingFragment = new RatingFragment();
+
+                    Bundle ratingMovieBundle = new Bundle();
+                    ratingMovieBundle.putString("Type", "movie");
+                    ratingMovieBundle.putParcelable("Movie", unseenMovieList.get(getAdapterPosition()));
+
+                    ratingFragment.setArguments(ratingMovieBundle);
+
+                    ratingFragment.show(((FragmentActivity) context).getSupportFragmentManager(), RatingFragment.TAG);
 
                     break;
             }
