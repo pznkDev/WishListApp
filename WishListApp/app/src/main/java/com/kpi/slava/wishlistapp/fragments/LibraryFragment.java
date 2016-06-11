@@ -16,10 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
+import com.kpi.slava.wishlistapp.adapters.BookReadListAdapter;
 import com.kpi.slava.wishlistapp.adapters.MovieSeenListAdapter;
-import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.database.BookEntity;
+import com.kpi.slava.wishlistapp.database.DBHelper;
+import com.kpi.slava.wishlistapp.database.MovieEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +76,8 @@ public class LibraryFragment extends Fragment {
                         break;
                     //books
                     case(1):
-                       /* isMovie = false;
-                        recyclerView.setAdapter(new BookReadListAdapter(loadReadBooks()));*/
+                        isMovie = false;
+                        recyclerView.setAdapter(new BookReadListAdapter(loadReadBooks(), getContext()));
                         break;
                 }
             }
@@ -92,7 +94,7 @@ public class LibraryFragment extends Fragment {
             public void onRefresh() {
 
                 if(isMovie) recyclerView.setAdapter(new MovieSeenListAdapter(loadSeenMovies(), getContext()));
-                else ; // for book
+                else recyclerView.setAdapter(new BookReadListAdapter(loadReadBooks(), getContext()));
 
                 recyclerView.getAdapter().notifyDataSetChanged();
                 swipeRefresh.setRefreshing(false);
@@ -134,4 +136,36 @@ public class LibraryFragment extends Fragment {
 
         return seenMovieList;
     }
+
+    private List<BookEntity> loadReadBooks() {
+        List<BookEntity> readBookList = new ArrayList<BookEntity>();
+
+        // load all read books
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_BOOKS + " WHERE " + DBHelper.KEY_READ
+                + " = '1'", null);
+
+        if(cursor.moveToFirst()) {
+            int id = cursor.getColumnIndex(DBHelper.KEY_ID);
+            int titleIndex = cursor.getColumnIndex(DBHelper.KEY_TITLE);
+            int genreIndex = cursor.getColumnIndex(DBHelper.KEY_GENRE);
+            int authorIndex = cursor.getColumnIndex(DBHelper.KEY_AUTHOR);
+            int readIndex = cursor.getColumnIndex(DBHelper.KEY_READ);
+            int ratingIndex = cursor.getColumnIndex(DBHelper.KEY_RATING);
+            int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
+
+            do {
+                readBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(genreIndex),
+                        cursor.getString(titleIndex), cursor.getString(authorIndex),
+                        cursor.getString(dateIndex), cursor.getString(ratingIndex), (byte) cursor.getInt(readIndex)));
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        dbHelper.close();
+
+        return readBookList;
+    }
+
 }

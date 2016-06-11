@@ -12,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.adapters.MovieUnseenListAdapter;
-import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.database.MovieEntity;
 
 import java.util.ArrayList;
 import java.util.List;

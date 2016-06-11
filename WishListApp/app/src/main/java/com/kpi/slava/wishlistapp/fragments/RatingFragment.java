@@ -13,10 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
-import com.kpi.slava.wishlistapp.entities.BookEntity;
-import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.database.BookEntity;
+import com.kpi.slava.wishlistapp.database.MovieEntity;
 
 public class RatingFragment extends DialogFragment {
 
@@ -50,14 +50,13 @@ public class RatingFragment extends DialogFragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            if(bundle.getString("Type").equals("movie")) isMovie = true;
+            if (bundle.getString("Type").equals("movie")) isMovie = true;
 
-            if(isMovie) {
+            if (isMovie) {
                 movie = bundle.getParcelable("Movie");
                 getDialog().setTitle("Rate " + "\"" + movie.getTitle() + "\"");
                 id = movie.getId();
-            }
-            else {
+            } else {
                 book = bundle.getParcelable("Book");
                 getDialog().setTitle("Rate " + "\"" + book.getTitle() + "\"");
                 id = book.getId();
@@ -77,23 +76,25 @@ public class RatingFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                if (ratingSpinner.getSelectedItemPosition() != 0){
+                if (ratingSpinner.getSelectedItemPosition() != 0) {
 
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-                    if(isMovie){
-                        int updCount = database.update(DBHelper.TABLE_MOVIES, setMovieContentValues(),
-                                DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
+                    int updCount;
 
-                    }
-                    else {
-                        int updCount = database.update(DBHelper.TABLE_BOOKS, setBookContentValues(),
-                                DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
+                    if (isMovie) {
+                        updCount = database.update(DBHelper.TABLE_MOVIES, setMovieContentValues(),
+                                DBHelper.KEY_ID + " = ?", new String[]{String.valueOf(id)});
+                    } else {
+                        updCount = database.update(DBHelper.TABLE_BOOKS, setBookContentValues(),
+                                DBHelper.KEY_ID + " = ?", new String[]{String.valueOf(id)});
                     }
 
+                    if(updCount > 0) Toast.makeText(getContext(), "Successfully. Please refresh", Toast.LENGTH_SHORT).show();
+
+                    dismiss();
                 } else Toast.makeText(getContext(), "Choose your mark", Toast.LENGTH_SHORT).show();
                 dbHelper.close();
-                dismiss();
             }
         });
 
@@ -120,7 +121,7 @@ public class RatingFragment extends DialogFragment {
         return contentValues;
     }
 
-    private ContentValues setMovieContentValues(){
+    private ContentValues setMovieContentValues() {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(DBHelper.KEY_TITLE, movie.getTitle());

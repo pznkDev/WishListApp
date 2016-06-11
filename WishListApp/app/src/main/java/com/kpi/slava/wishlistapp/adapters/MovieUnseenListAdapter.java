@@ -11,16 +11,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
-import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.database.MovieEntity;
 import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
 import com.kpi.slava.wishlistapp.fragments.RatingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenListAdapter.ViewHolder>{
+public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenListAdapter.ViewHolder> {
 
     List<MovieEntity> unseenMovieList = new ArrayList<MovieEntity>();
     Context context;
@@ -70,25 +70,25 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
         @Override
         public void onClick(View v) {
             int id = unseenMovieList.get(getAdapterPosition()).getId();
-            switch (v.getId()){
-                case (R.id.btn_unseen_movie_delete) :
+            switch (v.getId()) {
+                case (R.id.btn_unseen_movie_delete):
 
                     dbHelper = new DBHelper(context);
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
 
                     int DelCount = database.delete(DBHelper.TABLE_MOVIES, DBHelper.KEY_ID + "=" + id, null);
 
-                    unseenMovieList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
-
-                    if(DelCount>0) Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
-
+                    if (DelCount > 0) {
+                        Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
+                        unseenMovieList.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
+                    }
                     dbHelper.close();
 
                     break;
 
-                case (R.id.btn_unseen_movie_edit) :
+                case (R.id.btn_unseen_movie_edit):
 
                     ControlMovieFragment editMovieFragment = new ControlMovieFragment();
 
@@ -101,7 +101,7 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
 
                     break;
 
-                case (R.id.btn_unseen_movie_seen) :
+                case (R.id.btn_unseen_movie_seen):
 
                     RatingFragment ratingFragment = new RatingFragment();
 

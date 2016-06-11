@@ -12,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.adapters.BookUnreadListAdapter;
-import com.kpi.slava.wishlistapp.entities.BookEntity;
+import com.kpi.slava.wishlistapp.database.BookEntity;
 
 import java.util.ArrayList;
 import java.util.List;

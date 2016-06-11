@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
-import com.kpi.slava.wishlistapp.entities.BookEntity;
+import com.kpi.slava.wishlistapp.database.BookEntity;
 import com.kpi.slava.wishlistapp.fragments.ControlBookFragment;
 import com.kpi.slava.wishlistapp.fragments.RatingFragment;
 

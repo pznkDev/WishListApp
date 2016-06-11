@@ -1,4 +1,4 @@
-package com.kpi.slava.wishlistapp.entities;
+package com.kpi.slava.wishlistapp.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;

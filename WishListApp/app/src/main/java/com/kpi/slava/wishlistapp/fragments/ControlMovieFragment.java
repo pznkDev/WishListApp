@@ -18,9 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.kpi.slava.wishlistapp.DBHelper;
+import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.R;
-import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.database.MovieEntity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -230,6 +230,7 @@ public class ControlMovieFragment extends DialogFragment{
     public void onDismiss(DialogInterface dialog) {
         edtTitle.setText("");
         edtReleaseYear.setText("");
+        radioUnseen.setChecked(true);
         movieRatingSpinner.setSelection(0);
         movieGenreSpinner.setSelection(0);
         super.onDismiss(dialog);
