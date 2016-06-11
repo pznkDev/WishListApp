@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.entities.MovieEntity;
-import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,14 +93,14 @@ public class MovieSeenListAdapter extends RecyclerView.Adapter<MovieSeenListAdap
 
                 case (R.id.btn_seen_movie_edit) :
 
-                    AddMovieFragment editMovieFragment = new AddMovieFragment();
+                    ControlMovieFragment editMovieFragment = new ControlMovieFragment();
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("Movie", seenMovieList.get(getAdapterPosition()));
 
                     editMovieFragment.setArguments(bundle);
 
-                    editMovieFragment.show(((FragmentActivity) context).getSupportFragmentManager(), AddMovieFragment.TAG);
+                    editMovieFragment.show(((FragmentActivity) context).getSupportFragmentManager(), ControlMovieFragment.TAG);
 
                     break;
             }

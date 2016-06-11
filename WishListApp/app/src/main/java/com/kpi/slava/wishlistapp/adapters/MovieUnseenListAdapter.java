@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.entities.MovieEntity;
-import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
 import com.kpi.slava.wishlistapp.fragments.RatingFragment;
 
 import java.util.ArrayList;
@@ -90,14 +90,14 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
 
                 case (R.id.btn_unseen_movie_edit) :
 
-                    AddMovieFragment editMovieFragment = new AddMovieFragment();
+                    ControlMovieFragment editMovieFragment = new ControlMovieFragment();
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("Movie", unseenMovieList.get(getAdapterPosition()));
 
                     editMovieFragment.setArguments(bundle);
 
-                    editMovieFragment.show(((FragmentActivity) context).getSupportFragmentManager(), AddMovieFragment.TAG);
+                    editMovieFragment.show(((FragmentActivity) context).getSupportFragmentManager(), ControlMovieFragment.TAG);
 
                     break;
 

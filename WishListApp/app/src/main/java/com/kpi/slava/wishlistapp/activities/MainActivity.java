@@ -15,7 +15,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.R;
-import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.BooksFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlBookFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
 import com.kpi.slava.wishlistapp.fragments.HomeFragment;
 import com.kpi.slava.wishlistapp.fragments.LibraryFragment;
 import com.kpi.slava.wishlistapp.fragments.MoviesFragment;
@@ -29,9 +31,11 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
-    private AddMovieFragment addMovieFragment;
+    private ControlMovieFragment controlMovieFragment;
+    private ControlBookFragment controlBookFragment;
     private HomeFragment homeFragment;
     private MoviesFragment moviesFragment;
+    private BooksFragment booksFragment;
     private LibraryFragment libraryFragment;
 
     private final int CONTAINER = R.id.main_container;
@@ -52,9 +56,11 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getSupportFragmentManager();
 
-        addMovieFragment = new AddMovieFragment();
+        controlMovieFragment = new ControlMovieFragment();
+        controlBookFragment = new ControlBookFragment();
         homeFragment = new HomeFragment();
         moviesFragment = new MoviesFragment();
+        booksFragment = new BooksFragment();
         libraryFragment = new LibraryFragment();
 
         fragmentManager.beginTransaction().add(CONTAINER, homeFragment).commit();
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case (R.id.nav_books) :
+                transaction.replace(CONTAINER, booksFragment);
 
                 toolbar.setTitle("Books");
                 spinner.setVisibility(View.GONE);
@@ -171,14 +178,14 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fab_add_movie).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMovieFragment.show(getSupportFragmentManager(), AddMovieFragment.TAG);
+                controlMovieFragment.show(fragmentManager, ControlMovieFragment.TAG);
             }
         });
 
         findViewById(R.id.fab_add_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "add book", Toast.LENGTH_SHORT).show();
+                controlBookFragment.show(fragmentManager, ControlBookFragment.TAG);
             }
         });
 

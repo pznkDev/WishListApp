@@ -26,10 +26,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddMovieFragment extends DialogFragment{
+public class ControlMovieFragment extends DialogFragment{
 
-    public static final String TAG = "AddMovieFragment";
-    private final int LAYOUT = R.layout.fragment_movie_add;
+    public static final String TAG = "ControlMovieFragment";
+    private final int LAYOUT = R.layout.fragment_movie_control;
 
     private TextInputLayout tilTitle, tilReleaseYear;
 

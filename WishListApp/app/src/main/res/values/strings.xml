@@ -15,4 +15,7 @@
     <string name="radio_movie_unseen">Unseen</string>
     <string name="radio_movie_seen">Seen</string>
 
+    <string name="radio_book_read">Read</string>
+    <string name="radio_book_unread">Unread</string>
+
 </resources>

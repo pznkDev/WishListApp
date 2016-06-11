@@ -19,7 +19,7 @@ import com.kpi.slava.wishlistapp.entities.MovieEntity;
 
 public class RatingFragment extends DialogFragment {
 
-    public static final String TAG = "AddMovieFragment";
+    public static final String TAG = "ControlMovieFragment";
     private final int LAYOUT = R.layout.fragment_movie_rating;
 
     private String[] movieRatings = {"*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
