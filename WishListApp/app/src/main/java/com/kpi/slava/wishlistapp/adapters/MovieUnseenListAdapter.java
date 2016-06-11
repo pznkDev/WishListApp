@@ -1,14 +1,20 @@
 package com.kpi.slava.wishlistapp.adapters;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.entities.MovieEntity;
+import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +23,7 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
 
     List<MovieEntity> unseenMovieList = new ArrayList<MovieEntity>();
     Context context;
+    DBHelper dbHelper;
 
     public MovieUnseenListAdapter(List<MovieEntity> unseenMovieList, Context context) {
         this.unseenMovieList = unseenMovieList;
@@ -65,9 +72,32 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
             switch (v.getId()){
                 case (R.id.btn_unseen_movie_delete) :
 
+                    dbHelper = new DBHelper(context);
+                    SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+                    int DelCount = database.delete(DBHelper.TABLE_MOVIES, DBHelper.KEY_ID + "=" + id, null);
+
+                    unseenMovieList.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+                    notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
+                    notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
+
+                    if(DelCount>0) Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
+
+                    dbHelper.close();
+
                     break;
 
                 case (R.id.btn_unseen_movie_edit) :
+
+                    AddMovieFragment editMovieFragment = new AddMovieFragment();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("Movie", unseenMovieList.get(getAdapterPosition()));
+
+                    editMovieFragment.setArguments(bundle);
+
+                    editMovieFragment.show(((FragmentActivity) context).getSupportFragmentManager(), AddMovieFragment.TAG);
 
                     break;
 

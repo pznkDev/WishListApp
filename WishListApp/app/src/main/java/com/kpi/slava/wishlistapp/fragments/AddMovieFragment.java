@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
+import com.kpi.slava.wishlistapp.entities.MovieEntity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -51,9 +52,11 @@ public class AddMovieFragment extends DialogFragment{
 
     // if create - true, if edit - false
     private boolean create = true;
-    private long id ;
+    private int id ;
 
     private DBHelper dbHelper;
+
+    private MovieEntity movieBundle;
 
     @Nullable
     @Override
@@ -62,12 +65,7 @@ public class AddMovieFragment extends DialogFragment{
 
         view = inflater.inflate(LAYOUT, container, false);
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            id = bundle.getLong("idMovie");
-            create = false;
-            getDialog().setTitle("Edit movie");
-        }
+        //
 
         dbHelper = new DBHelper(getContext());
 
@@ -113,6 +111,22 @@ public class AddMovieFragment extends DialogFragment{
             }
         });
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            movieBundle = bundle.getParcelable("Movie");
+            id = movieBundle.getId();
+            create = false;
+            getDialog().setTitle("Edit movie");
+            radioGroup.setVisibility(View.GONE);
+            loadData();
+            if(movieBundle.getSeen() == 0) isSeen = false;
+            else {
+                isSeen = true;
+                linLayoutMovieRating.setVisibility(View.VISIBLE);
+            }
+
+        }
+
         view.findViewById(R.id.btn_enter_movie_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,24 +154,17 @@ public class AddMovieFragment extends DialogFragment{
                 date = dateFormat.format(new Date());
 
                 SQLiteDatabase database = dbHelper.getWritableDatabase();
-                ContentValues contentValues = new ContentValues();
 
                 if(!isSeen){
 
                     if((!title.equals("")) && (!title.equals(" "))){
 
                         if(create){
-                            contentValues.put(DBHelper.KEY_TITLE, title);
-                            contentValues.put(DBHelper.KEY_GENRE, genre);
-                            contentValues.put(DBHelper.KEY_RELEASE_YEAR, releaseYear);
-                            contentValues.put(DBHelper.KEY_SEEN, 0);
-                            contentValues.put(DBHelper.KEY_RATING, 0);
-                            contentValues.put(DBHelper.KEY_DATE, date);
-
-                            database.insert(DBHelper.TABLE_MOVIES, null, contentValues);
+                            database.insert(DBHelper.TABLE_MOVIES, null, setContentValues((byte) 0, ""));
                         }
                         else{
-                            // edit movie unseen
+                            int updCount = database.update(DBHelper.TABLE_MOVIES, setContentValues((byte) 0, ""),
+                                    DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
                         }
                         dismiss();
 
@@ -167,17 +174,11 @@ public class AddMovieFragment extends DialogFragment{
                     if((!title.equals("")) && (!title.equals(" ")) && (!rating.equals(""))){
 
                         if(create){
-                            contentValues.put(DBHelper.KEY_TITLE, title);
-                            contentValues.put(DBHelper.KEY_GENRE, genre);
-                            contentValues.put(DBHelper.KEY_RELEASE_YEAR, releaseYear);
-                            contentValues.put(DBHelper.KEY_SEEN, 1);
-                            contentValues.put(DBHelper.KEY_RATING, rating);
-                            contentValues.put(DBHelper.KEY_DATE, date);
-
-                            database.insert(DBHelper.TABLE_MOVIES, null, contentValues);
+                            database.insert(DBHelper.TABLE_MOVIES, null, setContentValues((byte) 1, rating));
                         }
                         else{
-                            // edit movie seen
+                            int updCount = database.update(DBHelper.TABLE_MOVIES, setContentValues((byte) 1, rating),
+                                    DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
                         }
                         dismiss();
                     }
@@ -191,6 +192,40 @@ public class AddMovieFragment extends DialogFragment{
         return view;
     }
 
+    private void loadData() {
+        edtTitle.setText(movieBundle.getTitle());
+        edtReleaseYear.setText(movieBundle.getReleaseYear());
+
+        for (int i = 0; i < genres.length; i++) {
+            if (genres[i].equals(movieBundle.getGenre())) {
+                movieGenreSpinner.setSelection(i);
+                break;
+            }
+        }
+
+        if(isSeen){
+            for(int i=0; i<ratings.length; i++){
+                if(ratings[i].equals(movieBundle.getRating())){
+                    movieRatingSpinner.setSelection(i);
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private ContentValues setContentValues(byte seen, String rating){
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DBHelper.KEY_TITLE, title);
+        contentValues.put(DBHelper.KEY_GENRE, genre);
+        contentValues.put(DBHelper.KEY_RELEASE_YEAR, releaseYear);
+        contentValues.put(DBHelper.KEY_SEEN, seen);
+        contentValues.put(DBHelper.KEY_RATING, rating);
+        contentValues.put(DBHelper.KEY_DATE, date);
+
+        return contentValues;
+    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
