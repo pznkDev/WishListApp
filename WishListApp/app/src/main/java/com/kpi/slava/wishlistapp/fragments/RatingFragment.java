@@ -15,14 +15,15 @@ import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.DBHelper;
 import com.kpi.slava.wishlistapp.R;
+import com.kpi.slava.wishlistapp.entities.BookEntity;
 import com.kpi.slava.wishlistapp.entities.MovieEntity;
 
 public class RatingFragment extends DialogFragment {
 
     public static final String TAG = "ControlMovieFragment";
-    private final int LAYOUT = R.layout.fragment_movie_rating;
+    private final int LAYOUT = R.layout.fragment_rating;
 
-    private String[] movieRatings = {"*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private String[] ratings = {"*", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     private View view;
 
@@ -32,6 +33,8 @@ public class RatingFragment extends DialogFragment {
     private boolean isMovie = false;
 
     private MovieEntity movie;
+
+    private BookEntity book;
 
     private DBHelper dbHelper;
 
@@ -54,11 +57,15 @@ public class RatingFragment extends DialogFragment {
                 getDialog().setTitle("Rate " + "\"" + movie.getTitle() + "\"");
                 id = movie.getId();
             }
+            else {
+                book = bundle.getParcelable("Book");
+                getDialog().setTitle("Rate " + "\"" + book.getTitle() + "\"");
+                id = book.getId();
+            }
 
         }
 
-        if(isMovie) ratingAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, movieRatings);
-
+        ratingAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ratings);
         ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ratingSpinner = (Spinner) view.findViewById(R.id.spinner_rating);
@@ -80,7 +87,8 @@ public class RatingFragment extends DialogFragment {
 
                     }
                     else {
-                        //for book
+                        int updCount = database.update(DBHelper.TABLE_BOOKS, setBookContentValues(),
+                                DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
                     }
 
                 } else Toast.makeText(getContext(), "Choose your mark", Toast.LENGTH_SHORT).show();
@@ -99,6 +107,19 @@ public class RatingFragment extends DialogFragment {
         return view;
     }
 
+    private ContentValues setBookContentValues() {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DBHelper.KEY_TITLE, book.getTitle());
+        contentValues.put(DBHelper.KEY_GENRE, book.getGenre());
+        contentValues.put(DBHelper.KEY_AUTHOR, book.getAuthor());
+        contentValues.put(DBHelper.KEY_READ, 1);
+        contentValues.put(DBHelper.KEY_RATING, ratings[ratingSpinner.getSelectedItemPosition()]);
+        contentValues.put(DBHelper.KEY_DATE, book.getDate());
+
+        return contentValues;
+    }
+
     private ContentValues setMovieContentValues(){
         ContentValues contentValues = new ContentValues();
 
@@ -106,7 +127,7 @@ public class RatingFragment extends DialogFragment {
         contentValues.put(DBHelper.KEY_GENRE, movie.getGenre());
         contentValues.put(DBHelper.KEY_RELEASE_YEAR, movie.getReleaseYear());
         contentValues.put(DBHelper.KEY_SEEN, 1);
-        contentValues.put(DBHelper.KEY_RATING, movieRatings[ratingSpinner.getSelectedItemPosition()]);
+        contentValues.put(DBHelper.KEY_RATING, ratings[ratingSpinner.getSelectedItemPosition()]);
         contentValues.put(DBHelper.KEY_DATE, movie.getDate());
 
         return contentValues;
