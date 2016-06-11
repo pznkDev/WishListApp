@@ -65,8 +65,6 @@ public class AddMovieFragment extends DialogFragment{
 
         view = inflater.inflate(LAYOUT, container, false);
 
-        //
-
         dbHelper = new DBHelper(getContext());
 
         radioUnseen = (RadioButton) view.findViewById(R.id.radio_movie_unseen);
@@ -118,13 +116,13 @@ public class AddMovieFragment extends DialogFragment{
             create = false;
             getDialog().setTitle("Edit movie");
             radioGroup.setVisibility(View.GONE);
-            loadData();
+
             if(movieBundle.getSeen() == 0) isSeen = false;
             else {
                 isSeen = true;
                 linLayoutMovieRating.setVisibility(View.VISIBLE);
             }
-
+            loadData();
         }
 
         view.findViewById(R.id.btn_enter_movie_cancel).setOnClickListener(new View.OnClickListener() {
@@ -165,6 +163,7 @@ public class AddMovieFragment extends DialogFragment{
                         else{
                             int updCount = database.update(DBHelper.TABLE_MOVIES, setContentValues((byte) 0, ""),
                                     DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
+                            if(updCount > 0) Toast.makeText(getContext(), "Successfully changed", Toast.LENGTH_SHORT).show();
                         }
                         dismiss();
 
@@ -179,6 +178,7 @@ public class AddMovieFragment extends DialogFragment{
                         else{
                             int updCount = database.update(DBHelper.TABLE_MOVIES, setContentValues((byte) 1, rating),
                                     DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
+                            if(updCount > 0) Toast.makeText(getContext(), "Successfully changed", Toast.LENGTH_SHORT).show();
                         }
                         dismiss();
                     }
@@ -204,14 +204,13 @@ public class AddMovieFragment extends DialogFragment{
         }
 
         if(isSeen){
-            for(int i=0; i<ratings.length; i++){
+            for(int i = 0; i<ratings.length; i++){
                 if(ratings[i].equals(movieBundle.getRating())){
                     movieRatingSpinner.setSelection(i);
                     break;
                 }
             }
         }
-
     }
 
     private ContentValues setContentValues(byte seen, String rating){

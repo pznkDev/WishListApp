@@ -65,7 +65,7 @@ public class MoviesFragment extends Fragment {
 
         // load all unseen movies
 
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
 
         Cursor cursor = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_MOVIES + " WHERE " + DBHelper.KEY_SEEN
                 + " = '0'", null);

@@ -37,7 +37,6 @@ public class RatingFragment extends DialogFragment {
 
     private ArrayAdapter<String> ratingAdapter;
 
-    private String rating;
     private int id;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,6 +85,7 @@ public class RatingFragment extends DialogFragment {
 
                 } else Toast.makeText(getContext(), "Choose your mark", Toast.LENGTH_SHORT).show();
                 dbHelper.close();
+                dismiss();
             }
         });
 

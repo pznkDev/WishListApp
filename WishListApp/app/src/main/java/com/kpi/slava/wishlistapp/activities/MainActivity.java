@@ -11,17 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.fragments.AddMovieFragment;
 import com.kpi.slava.wishlistapp.fragments.HomeFragment;
+import com.kpi.slava.wishlistapp.fragments.LibraryFragment;
 import com.kpi.slava.wishlistapp.fragments.MoviesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+    Spinner spinner;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity
     private AddMovieFragment addMovieFragment;
     private HomeFragment homeFragment;
     private MoviesFragment moviesFragment;
+    private LibraryFragment libraryFragment;
+
+    private final int CONTAINER = R.id.main_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +55,16 @@ public class MainActivity extends AppCompatActivity
         addMovieFragment = new AddMovieFragment();
         homeFragment = new HomeFragment();
         moviesFragment = new MoviesFragment();
+        libraryFragment = new LibraryFragment();
 
-
-        fragmentManager.beginTransaction().add(R.id.main_container, homeFragment).commit();
+        fragmentManager.beginTransaction().add(CONTAINER, homeFragment).commit();
     }
 
     private void initToolbar() {
+        spinner = (Spinner) findViewById(R.id.spinner_navigation);
+        spinner.setVisibility(View.GONE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar.setTitle("Home");
     }
 
     private void initNavigationDrawer() {
@@ -110,21 +118,38 @@ public class MainActivity extends AppCompatActivity
         switch(item.getItemId()){
             case (R.id.nav_home) :
                 transaction.replace(R.id.main_container, homeFragment);
+
+                toolbar.setTitle("Home");
+                spinner.setVisibility(View.GONE);
+
                 break;
 
             case (R.id.nav_movies) :
-                transaction.replace(R.id.main_container, moviesFragment);
+                transaction.replace(CONTAINER, moviesFragment);
+
+                toolbar.setTitle("Movies");
+                spinner.setVisibility(View.GONE);
+
                 break;
 
             case (R.id.nav_books) :
 
+                toolbar.setTitle("Books");
+                spinner.setVisibility(View.GONE);
+
                 break;
 
             case (R.id.nav_my_list) :
+                transaction.replace(CONTAINER, libraryFragment);
+
+                toolbar.setTitle("");
 
                 break;
 
             case (R.id.nav_notes) :
+
+                toolbar.setTitle("Notes");
+                spinner.setVisibility(View.GONE);
 
                 break;
 

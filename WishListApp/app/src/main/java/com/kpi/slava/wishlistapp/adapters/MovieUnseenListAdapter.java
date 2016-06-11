@@ -81,7 +81,6 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
                     unseenMovieList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
-                    notifyItemRangeChanged(getAdapterPosition(), unseenMovieList.size());
 
                     if(DelCount>0) Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
 
