@@ -55,8 +55,8 @@ public class LibraryFragment extends Fragment {
 
         dbHelper = new DBHelper(getContext());
 
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, types);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_item, types);
+        typeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner = (Spinner) getActivity().findViewById(R.id.spinner_navigation);
         spinner.setAdapter(typeAdapter);
         spinner.setVisibility(View.VISIBLE);
@@ -156,9 +156,9 @@ public class LibraryFragment extends Fragment {
             int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
 
             do {
-                readBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(genreIndex),
-                        cursor.getString(titleIndex), cursor.getString(authorIndex),
-                        cursor.getString(dateIndex), cursor.getString(ratingIndex), (byte) cursor.getInt(readIndex)));
+                readBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(titleIndex),
+                        cursor.getString(genreIndex), cursor.getString(authorIndex),
+                        cursor.getString(ratingIndex), cursor.getString(dateIndex), (byte) cursor.getInt(readIndex)));
             } while (cursor.moveToNext());
 
         }

@@ -114,7 +114,7 @@ public class ControlMovieFragment extends DialogFragment{
             movieBundle = bundle.getParcelable("Movie");
             id = movieBundle.getId();
             create = false;
-            getDialog().setTitle("Edit movie");
+            getDialog().setTitle("Edit  " + "\" " + movieBundle.getTitle() + " \"");
             radioGroup.setVisibility(View.GONE);
 
             if(movieBundle.getSeen() == 0) isSeen = false;

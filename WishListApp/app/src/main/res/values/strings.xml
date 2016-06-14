@@ -18,4 +18,11 @@
     <string name="radio_book_read">Read</string>
     <string name="radio_book_unread">Unread</string>
 
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_seen">Seen</string>
+    <string name="action_read">Read</string>
+
+    <string name="action_done">Done</string>
+
 </resources>

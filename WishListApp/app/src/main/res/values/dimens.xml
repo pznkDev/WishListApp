@@ -7,4 +7,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="general">16dp</dimen>
+    <dimen name="general_less">10dp</dimen>
+
+    <dimen name="main_margin">35dp</dimen>
 </resources>

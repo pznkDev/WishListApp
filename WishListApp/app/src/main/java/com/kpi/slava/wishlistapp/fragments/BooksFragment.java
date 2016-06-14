@@ -74,14 +74,15 @@ public class BooksFragment extends Fragment {
             int titleIndex = cursor.getColumnIndex(DBHelper.KEY_TITLE);
             int genreIndex = cursor.getColumnIndex(DBHelper.KEY_GENRE);
             int authorIndex= cursor.getColumnIndex(DBHelper.KEY_AUTHOR);
-            int seenIndex = cursor.getColumnIndex(DBHelper.KEY_READ);
+            int readIndex = cursor.getColumnIndex(DBHelper.KEY_READ);
             int ratingIndex = cursor.getColumnIndex(DBHelper.KEY_RATING);
             int dateIndex = cursor.getColumnIndex(DBHelper.KEY_DATE);
 
             do {
-                unreadBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(genreIndex),
-                        cursor.getString(titleIndex), cursor.getString(authorIndex),
-                        cursor.getString(dateIndex), cursor.getString(ratingIndex), (byte) cursor.getInt(seenIndex)));
+                unreadBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(titleIndex),
+                        cursor.getString(genreIndex), cursor.getString(authorIndex),
+                        cursor.getString(ratingIndex), cursor.getString(dateIndex), (byte) cursor.getInt(readIndex)));
+                System.out.println(cursor.getString(titleIndex) + "   " + cursor.getString(authorIndex));
             } while (cursor.moveToNext());
 
         }

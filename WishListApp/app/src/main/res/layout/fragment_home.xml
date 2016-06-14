@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOME"
-        android:textSize="45sp"
-        android:textStyle="italic"
-        android:typeface="monospace"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_movie_main"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/m_main" />
+
+            <TextView
+                android:id="@+id/tv_main_seen_movie_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/image_movie_main"
+                android:layout_marginLeft="@dimen/main_margin"
+                android:layout_marginTop="@dimen/general_less"
+                android:layout_marginBottom="@dimen/general_less"
+                android:text="Seen : NaN"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_main_unseen_movie_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/image_movie_main"
+                android:layout_marginRight="@dimen/main_margin"
+                android:layout_marginBottom="@dimen/general_less"
+                android:layout_marginTop="@dimen/general_less"
+                android:text="Unseen : NaN"
+                android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/image_book_main"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/tv_main_seen_movie_count"
+                android:scaleType="centerCrop"
+                android:src="@drawable/b_main" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_book_main"
+                android:layout_marginLeft="@dimen/main_margin"
+                android:text="Read : NaN"
+                android:textSize="25sp"
+                android:layout_marginTop="@dimen/general_less" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/image_book_main"
+                android:layout_marginRight="@dimen/main_margin"
+                android:text="Unread : NaN"
+                android:textSize="25sp"
+                android:layout_marginTop="@dimen/general_less"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

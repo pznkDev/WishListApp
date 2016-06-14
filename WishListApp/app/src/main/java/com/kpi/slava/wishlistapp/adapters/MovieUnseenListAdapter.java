@@ -22,6 +22,9 @@ import java.util.List;
 
 public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenListAdapter.ViewHolder> {
 
+    private final String GENRE = "Genre : ";
+    private final String RELEASEYEAR= "Release year : ";
+
     List<MovieEntity> unseenMovieList = new ArrayList<MovieEntity>();
     Context context;
     DBHelper dbHelper;
@@ -40,8 +43,8 @@ public class MovieUnseenListAdapter extends RecyclerView.Adapter<MovieUnseenList
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(unseenMovieList.get(position).getTitle());
-        holder.genre.setText(unseenMovieList.get(position).getGenre());
-        holder.release.setText(unseenMovieList.get(position).getReleaseYear());
+        holder.genre.setText(GENRE + unseenMovieList.get(position).getGenre());
+        holder.release.setText(RELEASEYEAR + unseenMovieList.get(position).getReleaseYear());
         holder.date.setText(unseenMovieList.get(position).getDate());
     }
 

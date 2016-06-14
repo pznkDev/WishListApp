@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -19,56 +21,86 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Title" />
+                android:layout_marginTop="3dp"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
 
             <TextView
                 android:id="@+id/tv_unseen_movie_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Genre" />
+                android:layout_marginLeft="@dimen/general"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_unseen_movie_release_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Release" />
+                android:layout_marginLeft="@dimen/general"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_unseen_movie_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="date" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:typeface="sans" />
 
-            <LinearLayout
+            <View
+                android:id="@+id/SplitLine_hor1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/separator" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
                 <Button
                     android:id="@+id/btn_unseen_movie_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete"
-                    android:layout_weight="1"
-                    android:background="@null"/>
+                    android:layout_alignParentLeft="true"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_close_black_24dp"
+                    android:text="@string/action_delete"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btn_unseen_movie_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:layout_weight="1"
-                    android:background="@null"/>
+                    android:layout_centerHorizontal="true"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_edit_black_24dp"
+                    android:text="@string/action_edit"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btn_unseen_movie_seen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Seen"
-                    android:layout_weight="1"
-                    android:background="@null"/>
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/ic_done_black_24dp"
+                    android:text="@string/action_done"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 

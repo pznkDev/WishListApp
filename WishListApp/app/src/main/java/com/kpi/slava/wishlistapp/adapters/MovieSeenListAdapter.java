@@ -21,6 +21,10 @@ import java.util.List;
 
 public class MovieSeenListAdapter extends RecyclerView.Adapter<MovieSeenListAdapter.ViewHolder> {
 
+    private final String GENRE = "Genre : ";
+    private final String RELEASEYEAR= "Release year : ";
+    private final String RATING= "/10";
+
     List<MovieEntity> seenMovieList = new ArrayList<MovieEntity>();
     Context context;
 
@@ -40,10 +44,10 @@ public class MovieSeenListAdapter extends RecyclerView.Adapter<MovieSeenListAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(seenMovieList.get(position).getTitle());
-        holder.genre.setText(seenMovieList.get(position).getGenre());
-        holder.release.setText(seenMovieList.get(position).getReleaseYear());
+        holder.genre.setText(GENRE + seenMovieList.get(position).getGenre());
+        holder.release.setText(RELEASEYEAR + seenMovieList.get(position).getReleaseYear());
         holder.date.setText(seenMovieList.get(position).getDate());
-        holder.rating.setText(seenMovieList.get(position).getRating());
+        holder.rating.setText(seenMovieList.get(position).getRating() + RATING);
     }
 
     @Override

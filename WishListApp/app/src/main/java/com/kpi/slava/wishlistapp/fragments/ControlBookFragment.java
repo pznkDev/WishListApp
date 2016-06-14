@@ -114,7 +114,7 @@ public class ControlBookFragment extends DialogFragment {
             bookEntity = bundle.getParcelable("Book");
             id = bookEntity.getId();
             create = false;
-            getDialog().setTitle("Edit " + "\"" + bookEntity + "\"");
+            getDialog().setTitle("Edit  " + "\" " + bookEntity.getTitle() + " \"");
             radioGroup.setVisibility(View.GONE);
 
             if(bookEntity.getRead() == 0) isRead = false;
@@ -213,7 +213,7 @@ public class ControlBookFragment extends DialogFragment {
         }
     }
 
-    private ContentValues setContentValues(byte read, String author){
+    private ContentValues setContentValues(byte read, String rating){
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(DBHelper.KEY_TITLE, title);

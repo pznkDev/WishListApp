@@ -9,7 +9,7 @@ public class BookEntity implements Parcelable {
     private String title, genre, author, date, rating;
     private byte read;
 
-    public BookEntity(int id, String genre, String title, String author, String rating, String date, byte read) {
+    public BookEntity(int id, String title, String genre, String author, String rating, String date, byte read) {
         this.id = id;
         this.genre = genre;
         this.title = title;

@@ -36,28 +36,31 @@
         android:layout_gravity="bottom|end"
         app:fab_addButtonColorNormal="@color/colorPrimary"
         app:fab_addButtonColorPressed="@color/colorPrimaryDark"
-        app:fab_addButtonPlusIconColor="@color/black">
+        app:fab_addButtonPlusIconColor="@color/white">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_movie_black_24dp"
-            app:fab_addButtonColorNormal="@color/colorFab" />
+            app:fab_colorNormal="@color/colorFab"
+            app:fab_colorPressed="@color/colorPrimaryDark" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_book_black_24dp"
-            app:fab_addButtonColorNormal="@color/colorFab" />
+            app:fab_colorNormal="@color/colorFab"
+            app:fab_colorPressed="@color/colorPrimaryDark"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_content_paste_black_24dp"
-            app:fab_addButtonColorNormal="@color/colorFab" />
+            app:fab_colorNormal="@color/colorFab"
+            app:fab_colorPressed="@color/colorPrimaryDark" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

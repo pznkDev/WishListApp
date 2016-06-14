@@ -22,6 +22,10 @@ import java.util.List;
 
 public class BookReadListAdapter extends RecyclerView.Adapter<BookReadListAdapter.ViewHolder> {
 
+    private final String GENRE = "Genre : ";
+    private final String AUTHOR = "Author : ";
+    private final String RATING= "/10";
+
     List<BookEntity> readBookList = new ArrayList<BookEntity>();
     Context context;
 
@@ -32,8 +36,6 @@ public class BookReadListAdapter extends RecyclerView.Adapter<BookReadListAdapte
         this.context = context;
     }
 
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_read_book, parent, false);
@@ -43,10 +45,10 @@ public class BookReadListAdapter extends RecyclerView.Adapter<BookReadListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(readBookList.get(position).getTitle());
-        holder.genre.setText(readBookList.get(position).getGenre());
-        holder.author.setText(readBookList.get(position).getAuthor());
+        holder.genre.setText(GENRE + readBookList.get(position).getGenre());
+        holder.author.setText(AUTHOR + readBookList.get(position).getAuthor());
         holder.date.setText(readBookList.get(position).getDate());
-        holder.rating.setText(readBookList.get(position).getRating());
+        holder.rating.setText(readBookList.get(position).getRating() + RATING);
     }
 
     @Override

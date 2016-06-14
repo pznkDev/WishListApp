@@ -23,6 +23,9 @@ import java.util.List;
 
 public class BookUnreadListAdapter extends RecyclerView.Adapter<BookUnreadListAdapter.ViewHolder>{
 
+    private final String GENRE = "Genre : ";
+    private final String AUTHOR= "Author : ";
+
     List<BookEntity> unreadBookList = new ArrayList<BookEntity>();
     Context context;
     DBHelper dbHelper;
@@ -41,8 +44,8 @@ public class BookUnreadListAdapter extends RecyclerView.Adapter<BookUnreadListAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(unreadBookList.get(position).getTitle());
-        holder.genre.setText(unreadBookList.get(position).getGenre());
-        holder.author.setText(unreadBookList.get(position).getAuthor());
+        holder.genre.setText(GENRE + unreadBookList.get(position).getGenre());
+        holder.author.setText(AUTHOR + unreadBookList.get(position).getAuthor());
         holder.date.setText(unreadBookList.get(position).getDate());
     }
 
