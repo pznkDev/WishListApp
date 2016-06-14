@@ -42,8 +42,9 @@ public class ControlMovieFragment extends DialogFragment{
 
     private RadioButton radioUnseen, radioSeen;
 
-    private String[] genres = {"<--choose-->", "adventure", "action", "fantasy", "horror"};
-    private String[] ratings = {"rate", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private String[] genres = {"<--choose-->", "action", "adventure", "comedy", "drama", "fantasy",
+                                "historical", "horror", "thriller"};
+    private String[] ratings = {"<--choose-->", "1", "2", "3", "4", "5","6","7","8","9","10"};
 
     private View view;
 

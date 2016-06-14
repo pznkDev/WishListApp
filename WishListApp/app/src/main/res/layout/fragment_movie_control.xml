@@ -53,7 +53,7 @@
             android:id="@+id/spinner_movie_genre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
     </LinearLayout>
 
@@ -87,8 +87,7 @@
         <Spinner
             android:id="@+id/spinner_movie_rating"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dialog"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -97,9 +96,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/separator" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"

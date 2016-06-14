@@ -82,7 +82,6 @@ public class BooksFragment extends Fragment {
                 unreadBookList.add(new BookEntity(cursor.getInt(id), cursor.getString(titleIndex),
                         cursor.getString(genreIndex), cursor.getString(authorIndex),
                         cursor.getString(ratingIndex), cursor.getString(dateIndex), (byte) cursor.getInt(readIndex)));
-                System.out.println(cursor.getString(titleIndex) + "   " + cursor.getString(authorIndex));
             } while (cursor.moveToNext());
 
         }
