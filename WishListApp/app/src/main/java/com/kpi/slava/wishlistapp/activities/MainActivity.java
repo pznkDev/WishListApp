@@ -12,15 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.fragments.BooksFragment;
 import com.kpi.slava.wishlistapp.fragments.ControlBookFragment;
 import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlNoteFragment;
 import com.kpi.slava.wishlistapp.fragments.HomeFragment;
 import com.kpi.slava.wishlistapp.fragments.LibraryFragment;
 import com.kpi.slava.wishlistapp.fragments.MoviesFragment;
+import com.kpi.slava.wishlistapp.fragments.NotesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,10 +34,12 @@ public class MainActivity extends AppCompatActivity
 
     private ControlMovieFragment controlMovieFragment;
     private ControlBookFragment controlBookFragment;
+    private ControlNoteFragment controlNoteFragment;
     private HomeFragment homeFragment;
     private MoviesFragment moviesFragment;
     private BooksFragment booksFragment;
     private LibraryFragment libraryFragment;
+    private NotesFragment notesFragment;
 
     private final int CONTAINER = R.id.main_container;
 
@@ -58,10 +61,12 @@ public class MainActivity extends AppCompatActivity
 
         controlMovieFragment = new ControlMovieFragment();
         controlBookFragment = new ControlBookFragment();
+        controlNoteFragment = new ControlNoteFragment();
         homeFragment = new HomeFragment();
         moviesFragment = new MoviesFragment();
         booksFragment = new BooksFragment();
         libraryFragment = new LibraryFragment();
+        notesFragment = new NotesFragment();
 
         fragmentManager.beginTransaction().add(CONTAINER, homeFragment).commit();
     }
@@ -154,6 +159,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case (R.id.nav_notes) :
+                transaction.replace(CONTAINER, notesFragment);
 
                 toolbar.setTitle("Notes");
                 spinner.setVisibility(View.GONE);
@@ -192,7 +198,7 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fab_add_note).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "add note", Toast.LENGTH_SHORT).show();
+                controlNoteFragment.show(fragmentManager, ControlNoteFragment.TAG);
             }
         });
 
