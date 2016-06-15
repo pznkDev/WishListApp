@@ -24,12 +24,13 @@ public class HomeFragment extends Fragment {
     DBHelper dbHelper;
 
 
-    private TextView tvSeen, tvUnseen, tvRead, tvUnread;
+    private TextView tvSeen, tvUnseen, tvRead, tvUnread, tvNotes;
 
     private final String SEEN = "Seen : ";
     private final String UNSEEN = "Unseen : ";
     private final String READ = "Read : ";
     private final String UNREAD = "Unread : ";
+    private final String NOTE = "Notes : ";
 
     @Nullable
     @Override
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
         tvUnseen = (TextView) view.findViewById(R.id.tv_main_unseen_movie_count);
         tvRead = (TextView) view.findViewById(R.id.tv_main_read_book_count);
         tvUnread = (TextView) view.findViewById(R.id.tv_main_unread_book_count);
+        tvNotes = (TextView) view.findViewById(R.id.tv_main_note_count);
 
         return view;
     }
@@ -71,6 +73,9 @@ public class HomeFragment extends Fragment {
         cursor = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_BOOKS + " WHERE " + DBHelper.KEY_READ
                 + " = '1'", null);
         tvRead.setText(READ + cursor.getCount());
+
+        cursor = database.rawQuery("SELECT * FROM " + DBHelper.TABLE_NOTES, null);
+        tvNotes.setText(NOTE + cursor.getCount());
 
         cursor.close();
         dbHelper.close();

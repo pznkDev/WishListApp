@@ -43,7 +43,7 @@ public class ControlBookFragment extends DialogFragment {
     private RadioButton radioUnread, radioRead;
 
     private String[] genres = {"<--choose-->", "adventure", "biography", "fantasy", "history", "horror", "romance", "science"};
-    private String[] ratings = {"<---->", "1", "2", "3", "4", "5"};
+    private String[] ratings = {"<--choose-->", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
     private View view;
 
@@ -135,7 +135,7 @@ public class ControlBookFragment extends DialogFragment {
         view.findViewById(R.id.btn_enter_book_accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get all values for Movie-object
+                // get all values for Book-object
                 title = edtTitle.getText().toString();
 
                 if (bookGenreSpinner.getSelectedItemPosition() != 0)

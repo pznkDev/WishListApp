@@ -8,4 +8,5 @@
     <color name="colorFab">#00acc1</color>
     <color name="fragmentBackground">#eceff1</color>
     <color name="separator">#9e9e9e</color>
+    <color name="warning">#cfd8dc</color>
 </resources>

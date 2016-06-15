@@ -21,6 +21,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/margin_title"
+                android:layout_marginRight="@dimen/margin_title"
                 android:layout_marginTop="3dp"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
@@ -54,18 +56,18 @@
                     android:id="@+id/tv_read_book_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:typeface="sans"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:textColor="@color/black"/>
+                    android:typeface="sans" />
 
                 <TextView
                     android:id="@+id/tv_read_book_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:typeface="sans"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
-                    android:textColor="@color/black"/>
+                    android:typeface="sans" />
 
             </RelativeLayout>
 
@@ -91,7 +93,7 @@
                     android:drawableLeft="@drawable/ic_close_black_24dp"
                     android:text="@string/action_delete"
                     android:textColor="@color/black"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btn_read_book_edit"
@@ -103,7 +105,7 @@
                     android:drawableLeft="@drawable/ic_edit_black_24dp"
                     android:text="@string/action_edit"
                     android:textColor="@color/black"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 

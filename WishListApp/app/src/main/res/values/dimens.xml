@@ -10,4 +10,5 @@
     <dimen name="general_less">10dp</dimen>
 
     <dimen name="main_margin">35dp</dimen>
+    <dimen name="margin_title">25dp</dimen>
 </resources>

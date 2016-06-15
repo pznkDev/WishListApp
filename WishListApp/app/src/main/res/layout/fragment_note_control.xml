@@ -27,7 +27,9 @@
         <EditText
             android:id="@+id/edt_enter_note_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="3"/>
     </android.support.design.widget.TextInputLayout>
 
     <View

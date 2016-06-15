@@ -22,6 +22,7 @@ import com.kpi.slava.wishlistapp.fragments.HomeFragment;
 import com.kpi.slava.wishlistapp.fragments.LibraryFragment;
 import com.kpi.slava.wishlistapp.fragments.MoviesFragment;
 import com.kpi.slava.wishlistapp.fragments.NotesFragment;
+import com.kpi.slava.wishlistapp.fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity
     private BooksFragment booksFragment;
     private LibraryFragment libraryFragment;
     private NotesFragment notesFragment;
+
+    private SettingsFragment settingsFragment;
 
     private final int CONTAINER = R.id.main_container;
 
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity
         booksFragment = new BooksFragment();
         libraryFragment = new LibraryFragment();
         notesFragment = new NotesFragment();
+
+        settingsFragment = new SettingsFragment();
 
         fragmentManager.beginTransaction().add(CONTAINER, homeFragment).commit();
     }
@@ -167,6 +172,11 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case (R.id.nav_settings) :
+
+                transaction.replace(CONTAINER, settingsFragment);
+
+                toolbar.setTitle("Settings");
+                spinner.setVisibility(View.GONE);
 
                 break;
 
