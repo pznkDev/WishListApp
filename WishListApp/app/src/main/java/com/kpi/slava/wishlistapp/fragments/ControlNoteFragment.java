@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.database.DBHelper;
+import com.kpi.slava.wishlistapp.database.NoteEntity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,12 @@ public class ControlNoteFragment extends DialogFragment{
 
     DBHelper dbHelper;
 
+    // if create - true, if edit - false
+    private boolean create = true;
+
+    private NoteEntity noteBundle;
+    int id;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +56,19 @@ public class ControlNoteFragment extends DialogFragment{
         tilText.setHint("Enter text*");
 
         dbHelper = new DBHelper(getContext());
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            noteBundle = bundle.getParcelable("Note");
+            id = noteBundle.getId();
+            create = false;
+            getDialog().setTitle("Edit note");
+
+            edtTitle.setText(noteBundle.getTitle());
+            edtText.setText(noteBundle.getText());
+
+        }
+
 
         view.findViewById(R.id.btn_enter_note_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +89,14 @@ public class ControlNoteFragment extends DialogFragment{
 
                     SQLiteDatabase database = dbHelper.getWritableDatabase();
 
-                    database.insert(DBHelper.TABLE_NOTES, null, setContentValues(title, text));
+                    if(create){
+                        database.insert(DBHelper.TABLE_NOTES, null, setContentValues(title, text));
+                    }
+                    else{
+                        int updCount = database.update(DBHelper.TABLE_NOTES, setContentValues(title, text),
+                                DBHelper.KEY_ID + " = ?", new String[] {String.valueOf(id)} );
+                        if(updCount > 0) Toast.makeText(getContext(), "Successfully changed", Toast.LENGTH_SHORT).show();
+                    }
 
                     dbHelper.close();
                     dismiss();

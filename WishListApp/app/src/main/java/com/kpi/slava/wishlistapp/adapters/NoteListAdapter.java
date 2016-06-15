@@ -1,15 +1,21 @@
 package com.kpi.slava.wishlistapp.adapters;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kpi.slava.wishlistapp.R;
 import com.kpi.slava.wishlistapp.database.DBHelper;
 import com.kpi.slava.wishlistapp.database.NoteEntity;
+import com.kpi.slava.wishlistapp.fragments.ControlMovieFragment;
+import com.kpi.slava.wishlistapp.fragments.ControlNoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +68,35 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.ViewHo
         @Override
         public void onClick(View v) {
 
+            int id = noteList.get(getAdapterPosition()).getId();
+
             switch (v.getId()){
                 case (R.id.btn_note_delete) :
+
+                    dbHelper = new DBHelper(context);
+                    SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+                    int DelCount = database.delete(DBHelper.TABLE_NOTES, DBHelper.KEY_ID + "=" + id, null);
+
+                    if (DelCount > 0) {
+                        Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
+                        noteList.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                    }
+                    dbHelper.close();
 
                     break;
 
                 case (R.id.btn_note_edit) :
+
+                    ControlNoteFragment editNoteFragment = new ControlNoteFragment();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("Note", noteList.get(getAdapterPosition()));
+
+                    editNoteFragment.setArguments(bundle);
+
+                    editNoteFragment.show(((FragmentActivity) context).getSupportFragmentManager(), ControlNoteFragment.TAG);
 
                     break;
 
